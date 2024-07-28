@@ -99,35 +99,6 @@ int main(int argc, char *argv[])
         grade_span[i][5] += F;
     }
 
-// #pragma omp parallel for num_threads(10)
-//     for (int j = 0; j < n; j++)
-//     {
-//         for (int i = 0; i < 5; i++)
-//         {
-//             if (array[j][i] <= 100 && array[j][i] >= 90)
-//             {
-//                 grade_span[i][0]++;
-//             }
-//             else if (array[j][i] < 90 && array[j][i] >= 80)
-//             {
-//                 grade_span[i][1]++;
-//             }
-//             else if (array[j][i] < 80 && array[j][i] >= 70)
-//             {
-//                 grade_span[i][2]++;
-//             }
-//             else if (array[j][i] < 70 && array[j][i] >= 60)
-//             {
-//                 grade_span[i][3]++;
-//             }
-//             else if (array[j][i] < 60 && array[j][i] >= 0)
-//             {
-//                 grade_span[i][4]++;
-//             }
-//             else printf("error");
-//         }
-//     }
-
     auto end = std::chrono::steady_clock::now();
     std::cout << "Sorting complete." << std::endl;
     std::cout << "Sorting Time: " << std::chrono::duration_cast<std::chrono::milliseconds>(end - start).count() << "ms" << std::endl;
