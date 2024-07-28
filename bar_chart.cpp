@@ -57,33 +57,76 @@ int main(int argc, char *argv[])
     std::cout << "Start sorting..." << std::endl;
     auto start = std::chrono::steady_clock::now();
 
+#pragma omp parallel for num_threads(5)
     for (int i = 0; i < 5; i++)
     {
+        int A = 0;
+        int B = 0;
+        int C = 0;
+        int D = 0;
+        int E = 0;
+        int F = 0;
+        #pragma omp parallel for reduction(+:A) reduction(+:B) reduction(+:C) reduction(+:D) reduction(+:E) reduction(+:F)
         for (int j = 0; j < n; j++)
         {
             if (array[j][i] <= 100 && array[j][i] >= 90)
             {
-                grade_span[i][0]++;
+                A++;
             }
             else if (array[j][i] < 90 && array[j][i] >= 80)
             {
-                grade_span[i][1]++;
+                B++;
             }
             else if (array[j][i] < 80 && array[j][i] >= 70)
             {
-                grade_span[i][2]++;
+                C++;
             }
             else if (array[j][i] < 70 && array[j][i] >= 60)
             {
-                grade_span[i][3]++;
+                D++;
             }
             else if (array[j][i] < 60 && array[j][i] >= 0)
             {
-                grade_span[i][4]++;
+                E++;
             }
             else printf("error");
         }
+        grade_span[i][0] += A;
+        grade_span[i][1] += B;
+        grade_span[i][2] += C;
+        grade_span[i][3] += D;
+        grade_span[i][4] += E;
+        grade_span[i][5] += F;
     }
+
+// #pragma omp parallel for num_threads(10)
+//     for (int j = 0; j < n; j++)
+//     {
+//         for (int i = 0; i < 5; i++)
+//         {
+//             if (array[j][i] <= 100 && array[j][i] >= 90)
+//             {
+//                 grade_span[i][0]++;
+//             }
+//             else if (array[j][i] < 90 && array[j][i] >= 80)
+//             {
+//                 grade_span[i][1]++;
+//             }
+//             else if (array[j][i] < 80 && array[j][i] >= 70)
+//             {
+//                 grade_span[i][2]++;
+//             }
+//             else if (array[j][i] < 70 && array[j][i] >= 60)
+//             {
+//                 grade_span[i][3]++;
+//             }
+//             else if (array[j][i] < 60 && array[j][i] >= 0)
+//             {
+//                 grade_span[i][4]++;
+//             }
+//             else printf("error");
+//         }
+//     }
 
     auto end = std::chrono::steady_clock::now();
     std::cout << "Sorting complete." << std::endl;
